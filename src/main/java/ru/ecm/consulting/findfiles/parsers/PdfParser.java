@@ -1,5 +1,6 @@
 package ru.ecm.consulting.findfiles.parsers;
 
+import com.itextpdf.text.pdf.PdfReader;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -22,8 +23,8 @@ public class PdfParser extends FileParser {
     @Override
     public int getPagesCount(File file) {
         try (FileInputStream inputStream = new FileInputStream(file)) {
-            Workbook workbook = new HSSFWorkbook(inputStream);
-            return workbook.getNumberOfSheets();
+            PdfReader pdfReader = new PdfReader(inputStream);
+            return pdfReader.getNumberOfPages();
         } catch (IOException e) {
             log.error(e.getMessage());
         }
